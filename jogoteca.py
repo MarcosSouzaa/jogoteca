@@ -8,12 +8,23 @@
 
 from flask import Flask, render_template
 
+class jogo:
+    def __init__(self, nome, categoria, console):
+        self.nome = nome
+        self.categoria = categoria
+        self.console = console
+
 app = Flask(__name__)
 
 @app.route('/inicio')
 def ola():
-    # criando a lista de jogos para interagir com html
-    lista = ['Tetris', 'Skirim', 'Crash']
+
+    # criando a lista de jogos para interagir com html ex: vou estanciar  a class jogo
+    # criando o objeto com nome, categoria e console
+
+    jogo1 = jogo('Tetris', 'Puzzle', 'Atari')
+    jogo2 = jogo('God of war', 'Rack on Slash', 'PS2')
+    lista = [jogo1, jogo2]
     return render_template('lista.html', titulo='Jogos', jogos=lista)
 
 app.run()
