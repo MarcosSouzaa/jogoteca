@@ -24,7 +24,8 @@ def ola():
 
     jogo1 = jogo('Tetris', 'Puzzle', 'Atari')
     jogo2 = jogo('God of war', 'Rack on Slash', 'PS2')
-    lista = [jogo1, jogo2]
+    jogo3 = jogo('Mortal Combate', 'Luta', 'PS2')
+    lista = [jogo1, jogo2, jogo3]
     return render_template('lista.html', titulo='Jogos', jogos=lista)
 
 app.run()
