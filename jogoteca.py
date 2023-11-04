@@ -7,7 +7,7 @@
 # vou deixar o html dinâmico
 # request ajuda pegar as informações do formulário
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 
 
 class Jogo:
@@ -46,7 +46,7 @@ def criar():
     # Agora vou criar um Objeto com essas categorias e depois vou adcioná-las a uma lista
     jogo = Jogo(nome, categoria, console)
     lista.append(jogo)
-    return render_template('lista.htmL', titulo='jogo', jogos=lista)
+    return redirect('/')
 
 
 app.run(debug=True)
