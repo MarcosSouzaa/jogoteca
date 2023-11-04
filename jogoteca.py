@@ -5,30 +5,48 @@
 # vou criara a rota para chamar no browser
 # Vou criar a função ola() que vai retornar o arquivo html criado quando chamada com app.run()
 # vou deixar o html dinâmico
+# request ajuda pegar as informações do formulário
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
-class jogo:
+
+class Jogo:
     def __init__(self, nome, categoria, console):
         self.nome = nome
         self.categoria = categoria
         self.console = console
 
+
+# criando a lista de jogos para interagir com html ex: vou estanciar  a class jogo
+# criando o objeto com nome, categoria e console
+# Deixando a Lista global
+jogo1 = Jogo('Tetris', 'Puzzle', 'Atari')
+jogo2 = Jogo('God of war', 'Rack on Slash', 'PS2')
+jogo3 = Jogo('Mortal Combate', 'Luta', 'PS2')
+lista = [jogo1, jogo2, jogo3]
+
 app = Flask(__name__)
 
-@app.route('/inicio')
-def ola():
-    # criando a lista de jogos para interagir com html ex: vou estanciar  a class jogo
-    # criando o objeto com nome, categoria e console
-
-    jogo1 = jogo('Tetris', 'Puzzle', 'Atari')
-    jogo2 = jogo('God of war', 'Rack on Slash', 'PS2')
-    jogo3 = jogo('Mortal Combate', 'Luta', 'PS2')
-    lista = [jogo1, jogo2, jogo3]
+@app.route('/')
+def index():
     return render_template('lista.html', titulo='Jogos', jogos=lista)
+
 
 @app.route('/novo')
 def novo():
     return render_template('novo.html', titulo='Novo Jogo')
 
-app.run()
+
+@app.route('/criar', methods=['POST', ])
+def criar():
+    # Aqui eu pego as informações enviadas pelo formulário
+    nome = request.form['nome']
+    categoria = request.form['categoria']
+    console = request.form['console']
+    # Agora vou criar um Objeto com essas categorias e depois vou adcioná-las a uma lista
+    jogo = Jogo(nome, categoria, console)
+    lista.append(jogo)
+    return render_template('lista.htmL', titulo='jogo', jogos=lista)
+
+
+app.run(debug=True)
